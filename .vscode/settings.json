@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "javagui/package1/lib/pdfbox-app-3.0.2.jar",
+        "c:\\Users\\Pc\\Downloads\\pdfbox-app-2.0.31.jar"
+    ]
+}
