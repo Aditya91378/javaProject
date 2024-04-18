@@ -9,14 +9,14 @@
     
     public class fileReaderArray {
         public static void main(String[] args) {
-            int q=0,s;
-            int stop;
+            int q,s,i=0;
+            int stop,start=0;
 
             
             
             try {
                 // Load PDF document
-                PDDocument document = PDDocument.load( new File("D:/javaProject/javagui/package1/javagui/package1/Twoques.pdf")) ;
+                PDDocument document = PDDocument.load( new File("D:/javaProject/javagui/package1/javagui/package1/Questions.pdf")) ;
                 // Create PDFTextStripper object
                 PDFTextStripper pdfStripper = new PDFTextStripper();
                 
@@ -29,32 +29,32 @@
                 document.close();
                 char [] content=text.toCharArray();
                 
-                s=startIndex(text);
-                stop=stopIndex(text,content);
-                char [] ques=new char[stop - s + 1];
-                
-                while (s <=stop) {
-                    ques[q]=content[s];
-                    s++;
-                    q++;
-                }
-                int start=stop+1;
-                // do{
-
-                // }
-                // while(start<=text.length());                    
-                
                 System.out.println(content);
-                System.out.println(ques);
-                
-                
-                // for(int i=0;i<=stop;i++){
+                s=startIndex(text,0);
+                stop=stopIndex(text,0);
+                if (s != -1 && stop != -1) {
+                char [] ques=new char[stop - s + 1];
+                while (i<content.length) {
+                    q=0;
+                    while (s <=stop) {
+                        ques[q]=content[s];
+                        s++;
+                        q++;
+                    }         
 
-                //     if (Character.isDigit(text.charAt(i))) {
-                //         return i;
-                //     }
-                // }
+                    System.out.println(ques);
+                start=stop+1;
+                while(start<content.length){
+                   s= startIndex(text, start);
+                  stop=  stopIndex(text, start);
+                    start++;
+                }
+                i++;
+            }
 
+            }
+        
+        
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,27 +62,30 @@
         }
     
 
-        public static int startIndex(String text ){
-        
-          int  i=0;
-            while( i<=text.length()){
+        public static int startIndex(String text,int start ){
+            
+            
+            
+                while( start<text.length()){
 
-                if (Character.isDigit(text.charAt(i))) {
-                    return i;
+                    if (Character.isDigit(text.charAt(start))) {
+                        return start;
+                    }
+                    start++;
                 }
-                i++;
-            }
-            return -i;
-        }
-        public static int stopIndex(String text,char content[]){
-            int i;
-            for( i=0;i<=text.length();i++){
+                return -start;  
 
-                if (text.charAt(i)=='?') {
-                    return i;
-                }
             }
-            return -i;
+        public static int stopIndex(String text,int start){
+            while( start<text.length()){
+
+                if (text.charAt(start)=='.') {
+                    return start;
+                }
+                start++;
+            }
+            return -start;  
+            
         }
     }
     
