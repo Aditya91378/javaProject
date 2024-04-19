@@ -11,9 +11,7 @@
         public static void main(String[] args) {
             int q,s,i=0;
             int stop,start=0;
-
-            
-            
+         
             try {
                 // Load PDF document
                 PDDocument document = PDDocument.load( new File("D:/javaProject/javagui/package1/javagui/package1/Questions.pdf")) ;
@@ -28,44 +26,39 @@
                 // Close the document
                 document.close();
                 char [] content=text.toCharArray();
-                
-                System.out.println(content);
-                s=startIndex(text,0);
-                stop=stopIndex(text,0);
-                if (s != -1 && stop != -1) {
-                char [] ques=new char[stop - s + 1];
-                while (i<content.length) {
-                    q=0;
-                    while (s <=stop) {
-                        ques[q]=content[s];
-                        s++;
-                        q++;
-                    }         
-
-                    System.out.println(ques);
-                start=stop+1;
                 while(start<content.length){
-                   s= startIndex(text, start);
-                  stop=  stopIndex(text, start);
-                    start++;
-                }
-                i++;
+                    s= startIndex(text, start);
+                    stop=  stopIndex(text, start);
+                    if (s != -1 && stop != -1) {
+                        char [] ques=new char[stop - s + 1];
+                        q=0;
+                        
+                            while (s <=stop) {
+                                ques[q]=content[s];
+                                s++;
+                                q++;
+                            }         
+                            
+                        
+                            // System.out.println(ques);
+                            String str= new String(ques);
+                            System.out.println(str);
+                            
+                            start =stop+1;
+                    }
+                    else{
+                        System.out.println("not working");
+                        start++;
+                    }
+                
             }
-
-            }
-        
-        
             } catch (IOException e) {
                 e.printStackTrace();
             }
         
         }
-    
 
-        public static int startIndex(String text,int start ){
-            
-            
-            
+        public static int startIndex(String text,int start ){ 
                 while( start<text.length()){
 
                     if (Character.isDigit(text.charAt(start))) {
